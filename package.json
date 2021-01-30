@@ -1,0 +1,15 @@
+{
+  "name": "fostr",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "json-server --watch _db.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "glob": "^7.1.6",
+    "json-server": "^0.16.3"
+  }
+}
