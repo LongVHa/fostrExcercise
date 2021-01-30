@@ -7,13 +7,13 @@ const apiFiles = glob.sync(path.resolve(__dirname, "./json") + "/**/*.json", {
     nodir:true
 })
 
-let data = {}
+let data = { all: []}
 
 apiFiles.forEach( filePath => {
     const api = require(filePath)
     let [,url] = filePath.split("json/") //get file names
     url = url.slice(0, url.length - 5) //remove .json
-    data[url] = api
+    data.all.push(api)
 })
 
 module.exports = () => {

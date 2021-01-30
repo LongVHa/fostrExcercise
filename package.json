@@ -11,5 +11,8 @@
   "devDependencies": {
     "glob": "^7.1.6",
     "json-server": "^0.16.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
   }
 }
