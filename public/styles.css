@@ -1,0 +1,123 @@
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+.wrapper,
+aside,
+header,
+main{
+    padding:20px;
+}
+
+header{
+    border-top:1px solid #eee;
+    border-bottom:1px solid #eee;
+    margin:20px 0;
+}
+
+.wrapper{
+    display:flex;
+    justify-content: center;
+    height:100vh;
+}
+
+.inner{
+   width:1200px;
+}
+
+aside{
+    width:29%;
+    display:inline-block;
+}
+
+.side-listing > * {
+    margin: 15px 0;
+}
+
+#search{
+    margin-bottom:20px;
+    padding:10px 20px;
+}
+
+#findBtn{
+    padding:10px 20px;
+    margin-left:5px;
+}
+#findBtn:hover{
+    cursor:pointer;
+}
+
+main{
+    width:60%;
+    margin-left:40px;
+    display:inline-block;
+}
+
+main h3 {
+    margin-top:20px;
+    margin-bottom:10px;
+    text-transform:capitalize;
+}
+
+.container{
+    display:flex;
+    flex-direction:row;
+}
+
+.title{
+    background-color:#eee;
+    padding:5px 10px;
+}
+
+.title:hover{
+    cursor:pointer;
+    transform: translateX(3px);
+    transition: all 0.3s;
+}
+
+.ingredients{
+    margin-left:20px;
+}
+
+.tags{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.tags:not(:last-of-type){
+    margin-right:20px;
+}
