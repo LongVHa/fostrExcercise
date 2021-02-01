@@ -33,6 +33,8 @@ select {
 
 body {
   font-family: "Roboto", sans-serif;
+  overflow-y: overlay;
+  overflow-x: overlay;
 }
 
 .wrapper,
@@ -72,11 +74,11 @@ aside{
     padding:10px 20px;
 }
 
-#findBtn{
-    padding:10px 20px;
-    margin-left:5px;
+#clearBtn{
+    padding:10px 15px;
+    margin-left:10px;
 }
-#findBtn:hover{
+#clearBtn:hover{
     cursor:pointer;
 }
 
@@ -120,4 +122,8 @@ main h3 {
 
 .tags:not(:last-of-type){
     margin-right:20px;
+}
+
+input[type="checkbox"]:checked + label {
+    font-weight:600;
 }

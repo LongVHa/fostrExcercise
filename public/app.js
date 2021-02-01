@@ -1,6 +1,6 @@
 const header = document.querySelector('header'),
       searchInput = document.querySelector('#search'),
-      findBtn = document.querySelector('#findBtn'),
+      clearBtn = document.querySelector('#clearBtn'),
       sideListing = document.querySelector('.side-listing'),
       main = document.querySelector('main')
 
@@ -12,28 +12,28 @@ const getData = async url => {
 }
 
 getData(api).then( result =>{
-    listTitles(result) 
+    displayList(result) 
     search(result)
     tags(result)
+    clear(result)
 })
 
-const listTitles = result => {
+const displayList = result => {
     result.forEach( (obj, index) => {
         const titleEl = createNew('div', 'title', obj.title)
-        const currObj = result[index]        
+        const currObj = result[index]
         display(sideListing, titleEl)
         listEvent(titleEl, currObj)
     })
 } 
 
-//get tags
+// tags
 const tags = (result) => {
     let tags = ""
-    
     result.forEach( (obj, index) => {        
         for(const tag of obj.tags){
             if(tags.indexOf(tag) < 1){
-                tags += `<label for="${tag}">${tag}</label><input type="checkbox" class="tag" name="${tag}">`
+                tags += `<input type="checkbox" class="tag" name="${tag}"><label for="${tag}">${tag}</label>`
             }
         }
     })
@@ -44,11 +44,42 @@ const tags = (result) => {
 
 const tagEvent = result => {
     const tagEl = document.querySelectorAll('.tag')
+    let tagsChecked = []
     for(const el of tagEl){
-        el.addEventListener('change', (e) => {
-             if (this.checked) console.log('checked')
+        el.addEventListener('change', () => {
+            tagsChecked = []
+             tagEl.forEach( el => {
+                 if(el.checked){
+                    if (!tagsChecked.includes(el.name)) tagsChecked.push(el.name)
+                 }
+             })
+             handleChecked(result, tagsChecked)
         })
     }
+}
+
+const handleChecked = (result, tagsChecked) => {
+    sideListing.innerHTML = ""
+    let dishHasTag = []
+    for(const obj of result){
+        obj.tags.forEach( (tag, index) => {
+            if(tagsChecked.includes(tag)) {
+                if(!dishHasTag.includes(obj.title)) dishHasTag.push(obj.title)
+            } 
+        })
+    }
+    dishHasTag.length > 0 ?  displayTagDishes(result, dishHasTag) : displayList(result)
+}
+
+const displayTagDishes = (result, dishHasTag) => {
+    result.forEach( (obj, index) => {
+        if(dishHasTag.includes(obj.title)){
+            const titleEl = createNew('div', 'title', obj.title)
+            const currObj = result[index]
+            display(sideListing, titleEl)
+            listEvent(titleEl, currObj)
+        }
+    })
 }
 
 const listEvent = (el, currObj) => {
@@ -62,13 +93,13 @@ const listEvent = (el, currObj) => {
             else template += `<h3>${key.replaceAll('_', ' ')}</h3><p>${currObj[key]}</p>`
         }
         const div = createNew('div', 'main', template)
-        main.innerHTML = ''
+        main.innerHTML = ""
         display(main, div)
     })
 }
 
 
-// info displays
+// Dish information
 const handleTitle = (currObj, key) =>{
    return `<h1>${currObj[key]}</h1>`
 }
@@ -82,7 +113,7 @@ const handleIngredients = (currObj, key) => {
 }
 
 const handleServings = (currObj, key) => {
-    let options =''
+    let options = ""
     for(i = 1; i < currObj[key] + 1; i++){
         if(i == currObj[key]) options += `<option value="${i}" selected>${i}</option>`
         else options += `<option value=${i}>${i}</option>`
@@ -98,14 +129,29 @@ const handleAuthor = (currObj, key) =>{
 
 // search
 const search = (result) =>{
-    findBtn.addEventListener('click', () => {
-        // console.log(result.find(searchInput.value))
+    searchInput.addEventListener('input', e => {
+        sideListing.innerHTML = ""
+        result.forEach( (obj, index) => {
+            if(JSON.stringify(obj.ingredients).includes(e.target.value)){
+                const titleEl = createNew('div', 'title', obj.title)
+                const currObj = result[index]
+                display(sideListing, titleEl)
+                listEvent(titleEl, currObj)
+            }
+        })
     })
 }
 
 // misc
 const display = (section, el) =>{
     section.append(el)
+}
+
+const clear = (result) => {
+    clearBtn.addEventListener('click', () => {
+        searchInput.value = ""
+        displayList(result)
+    })
 }
 
 const createNew = (elemType, elemClass, elemContent ) => {
