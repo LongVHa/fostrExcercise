@@ -150,6 +150,7 @@ const display = (section, el) =>{
 const clear = (result) => {
     clearBtn.addEventListener('click', () => {
         searchInput.value = ""
+        sideListing.innerHTML = "" 
         displayList(result)
     })
 }
