@@ -183,13 +183,35 @@ const source = (currObj, key) =>{
 const servingQty = () => {
     const qty = document.querySelector('#servingQty')
     const ingredients = document.querySelectorAll('.ingredients > li')
-    qty.addEventListener('click', e => {
-      //  console.log('clicked', e.target.value)
+    qty.addEventListener('change', e => {
         for(const item of ingredients){
-            const numInString = item.innerHTML.match(/[+-]?\d+(?:\.\d+)?/g)
-            const strSplit = item.innerHTML.split(numInString.length)
+            // const numInString = item.innerHTML.match(/[+-]?\d+(?:\.\d+)?/g)
+            // const strSplit = item.innerHTML.split(numInString.length)
 
-            console.log(numInString.length,strSplit[1])
+            const itemContent = item.innerHTML
+            const firstSpace = itemContent.indexOf(' ')
+            const itemNum = itemContent.split(' ',[1])
+            const itemTxt = itemContent.slice(firstSpace)
+            const servings = +e.target.value
+            let convertedNum = 0
+
+            switch(itemNum){
+                case '1/4':
+                    convertedNum = 0.25
+                    break
+                case '1/2':
+                    convertedNum = 0.50
+                    break
+                case '3/4':
+                    convertedNum = 0.75
+                    break
+                default:
+                    convertedNum = 1.00
+            }
+
+           const newAmount = (convertedNum / servings).toFixed(2)
+           const newContent = `${newAmount} ${itemTxt}`
+           item.innerHTML = newContent
         }
     })
 }
