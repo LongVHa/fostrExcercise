@@ -37,11 +37,16 @@ body {
   overflow-x: overlay;
 }
 
+a{
+    color:#000;
+}
+
 .wrapper,
 aside,
 header,
 main{
     padding:20px;
+    transition: all 0.3s ease-in-out;
 }
 
 header{
@@ -124,6 +129,7 @@ main h3 {
     margin-right:20px;
 }
 
-input[type="checkbox"]:checked + label {
+.active,
+header input[type="checkbox"]:checked + label {
     font-weight:600;
 }
