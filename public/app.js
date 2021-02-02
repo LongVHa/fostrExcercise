@@ -206,7 +206,7 @@ const servingQty = () => {
                     convertedNum = 0.75
                     break
                 default:
-                    convertedNum = 1.00
+                    convertedNum = itemNum
             }
 
            const newAmount = (convertedNum / servings).toFixed(2)
